@@ -1,50 +1,36 @@
 <template>
   <div class="home">
     <h1>Home</h1>
-    <input type="text" v-model="search" />
-    <p>search term - {{ search }}</p>
-    <div v-for="name in matchingNames" :key="name">{{ name }}</div>
-    <button @click="handleClick">Stop Watching</button>
+    <PostList :posts="posts" />
   </div>
 </template>
 
 <script>
-import { ref, computed, watch, watchEffect } from 'vue'
-// @ is an alias to /src
+import PostList from '../components/PostList'
+import { ref } from 'vue'
 
 export default {
   name: 'Home',
-
+  components: { PostList },
   setup() {
-    const search = ref('')
-
-    const names = ref([
-      'mario',
-      'yoshi',
-      'luigi',
-      'toad',
-      'bowser',
-      'koopa',
-      'peach',
+    const posts = ref([
+      {
+        title: 'wellcome to the blog',
+        body:
+          'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorum nostrum fugiat non officiis commodi hic? Pariatur adipisci culpa quibusdam nostrum, blanditiis a quas accusantium deleniti, vel facilis ipsum nemo modi laboriosam cupiditate impedit qui temporibus odit ipsam debitis nisi? Natus perspiciatis ad molestiae optio nihil modi cupiditate, quam perferendis ipsum consequuntur est amet neque officiis, maiores omnis facilis. Fuga facilis nulla fugit unde consectetur recusandae repellat beatae voluptas dignissimos aspernatur sint nisi reprehenderit pariatur mollitia repudiandae neque cumque, ullam harum. Laboriosam, quod ipsum quam natus recusandae vero nihil enim ab, laudantium quasi illo et explicabo non amet? Placeat, et illo!',
+        id: 1,
+      },
+      {
+        title: 'top 5 CSS tips',
+        body:
+          'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorum nostrum fugiat non officiis commodi hic? Pariatur adipisci culpa quibusdam nostrum, blanditiis a quas accusantium deleniti, vel facilis ipsum nemo modi laboriosam cupiditate impedit qui temporibus odit ipsam debitis nisi? Natus perspiciatis ad molestiae optio nihil modi cupiditate, quam perferendis ipsum consequuntur est amet neque officiis, maiores omnis facilis. Fuga facilis nulla fugit unde consectetur recusandae repellat beatae voluptas dignissimos aspernatur sint nisi reprehenderit pariatur mollitia repudiandae neque cumque, ullam harum. Laboriosam, quod ipsum quam natus recusandae vero nihil enim ab, laudantium quasi illo et explicabo non amet? Placeat, et illo!',
+        id: 2,
+      },
     ])
 
-    const stopWatch = watch(search, () => {
-      console.log('watch function ran')
-    })
-    const stopEffect = watchEffect(() => {
-      console.log('watchEffect function ran', search.value)
-    })
-
-    const matchingNames = computed(() => {
-      return names.value.filter((name) => name.includes(search.value))
-    })
-
-    const handleClick = () => {
-      stopWatch()
-      stopEffect()
-    }
-
-    return { names, search, matchingNames, handleClick }
+    return { posts }
   },
 }
 </script>
+
+<style></style>
