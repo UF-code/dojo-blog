@@ -1,6 +1,6 @@
 import { ref } from 'vue'
 
-const useTags = () => {
+const useTags = (posts) => {
   const tags = ref([])
   const tagSet = new Set()
 
