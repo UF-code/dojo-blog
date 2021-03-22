@@ -7,7 +7,7 @@
       <textarea v-model="body" required></textarea>
       <label>Tags (hit enter to add a tag)</label>
       <input v-model="tag" type="text" @keydown.enter.prevent="handleKeydown" />
-      <div v-for="tag in tags" :key="tag">#{{ tag }}</div>
+      <div v-for="tag in tags" :key="tag" class="pill">#{{ tag }}</div>
       <button>Add Post</button>
     </form>
   </div>
@@ -16,6 +16,7 @@
 <script>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { projectFirestore } from '../firebase/config'
 
 export default {
   setup() {
@@ -41,11 +42,7 @@ export default {
         tags: tags.value,
       }
 
-      await fetch('http://localhost:3000/posts', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(post),
-      })
+      const res = await projectFirestore.collection('posts').add(post)
 
       router.push({ name: 'Home' })
     }
