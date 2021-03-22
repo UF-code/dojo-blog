@@ -3,7 +3,7 @@
   <div v-if="post" class="post">
     <h3>{{ post.title }}</h3>
     <p class="pre">{{ post.body }}</p>
-    <button @click="handleClick">delete post</button>
+    <button @click="handleClick" class="delete">delete post</button>
   </div>
   <div v-else>
     <Spinner />
@@ -34,7 +34,7 @@ export default {
       router.push({ name: 'Home' })
     }
 
-    return { post, error }
+    return { post, error, handleClick }
   },
 }
 </script>
@@ -51,5 +51,8 @@ export default {
 }
 .pre {
   white-space: pre-wrap;
+}
+button.delete {
+  margin: 10px auto;
 }
 </style>
